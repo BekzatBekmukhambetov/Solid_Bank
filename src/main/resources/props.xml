@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+        <bean id="accountCreationService" class="com.example.project1.services.impl.AccountCreationServiceImpl">
+                <constructor-arg ref="AccountDao"/>
+        </bean>
+        <bean id="AccountDao" class="com.example.project1.dao.MemoryAccountDAO"/>
+        <bean id="createAccountOperationUI" class="com.example.project1.CLI.MyCLI" />
+        <bean id="bankCore" class="com.example.project1.domain.BankCore" >
+                <constructor-arg ref="accountCreationService"/>
+        </bean>
+
+
+        <bean id="accountListingService" class="com.example.project1.services.impl.AccountListingServiceImpl" >
+                <constructor-arg ref="AccountDao"/>
+        </bean>
+
+        <bean id="accountBasicCLI" class="com.example.project1.CLI.AccountBasicCLI">
+                <constructor-arg ref="createAccountOperationUI" />
+                <constructor-arg ref="bankCore" />
+                <constructor-arg ref="accountListingService" />
+        </bean>
+
+
+
+</beans>
